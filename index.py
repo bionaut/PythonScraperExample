@@ -30,14 +30,23 @@ def get_html(url):
     conn.close()
     return bs(page_html, 'html.parser')
 
-# get page
-page = get_html('http://www.maltapark.com/listings.aspx?category=14&lt=wa')
+
+# list of pages
+list_of_pages = [
+    'http://www.maltapark.com/listings.aspx?category=14&lt=wa',
+    'http://www.maltapark.com/listings.aspx?category=14&lt=wa&page=2&nr=5029&wr=63&bn=15',
+    'http://www.maltapark.com/listings.aspx?category=14&lt=wa&page=3&nr=5029&wr=63&bn=15'
+    'http://www.maltapark.com/listings.aspx?category=14&lt=wa&page=4&nr=5029&wr=63&bn=15'
+]
 
 # create new file
 file = create_file()
 
-# parse items and write them
-append_page_items(page, file)
+
+for page in list_of_pages:
+    cur_page = get_html(page)
+    append_page_items(cur_page, file)
+
 
 # close
 file.close()
